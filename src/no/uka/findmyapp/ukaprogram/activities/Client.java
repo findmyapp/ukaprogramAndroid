@@ -1,5 +1,13 @@
 package no.uka.findmyapp.ukaprogram.activities;
 
+import java.net.URI;
+import java.net.URISyntaxException;
+
+import no.uka.findmyapp.android.rest.client.HttpType;
+import no.uka.findmyapp.android.rest.client.ServiceDataFormat;
+import no.uka.findmyapp.android.rest.client.model.ServiceModel;
+import no.uka.findmyapp.android.rest.contracts.UkaEvents.UkaEventContract;
+import no.uka.findmyapp.android.rest.datamodels.UkaEvent;
 import no.uka.findmyapp.ukaprogram.R;
 import android.app.TabActivity;
 import android.content.Intent;
@@ -8,6 +16,8 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.TabHost;
+
+import com.google.gson.reflect.TypeToken;
 
 public class Client extends TabActivity{
 
@@ -41,6 +51,23 @@ public class Client extends TabActivity{
 
 
 	} // end onCreate()
+
+	public void updateRest(){
+		try {
+			ServiceModel sm = new ServiceModel(
+					new URI("http://findmyapp.net/findmyapp/program/UKA11/events/"), 
+					HttpType.GET, 
+					ServiceDataFormat.JSON, 
+					new TypeToken<UkaEvent>(){}.getType(), 
+					UkaEventContract.EVENT_CONTENT_URI);
+		} catch (URISyntaxException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+
+	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater inflater = getMenuInflater();   
 		inflater.inflate(R.menu.main_menu, menu);   
@@ -63,25 +90,25 @@ public class Client extends TabActivity{
 		default:  
 			return super.onOptionsItemSelected(item); 
 		}
-		
+
 	}
-	
+
 	public void openCalendar(){
 		Intent intent;
-		
+
 		intent = new Intent().setClass(this, CalendarActivity.class);
 		startActivity(intent);
-		
+
 	}
 	public void openFiveNext(){
 		Intent intent;
-		
+
 		intent = new Intent().setClass(this, FiveNextActivity.class);
 		startActivity(intent);
 	}
 	public void openFullList(){
 		Intent intent;
-		
+
 		intent = new Intent().setClass(this, EventListActivity.class);
 		startActivity(intent);
 	}

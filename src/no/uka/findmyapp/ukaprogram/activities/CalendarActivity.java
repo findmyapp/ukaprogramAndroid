@@ -27,6 +27,7 @@ public class CalendarActivity extends Activity
 		calenderGrid.setAdapter(new CalenderAdapter(this));
 		
 		calenderGrid.setOnItemClickListener(new OnItemClickListener(){
+			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id){
 				//viewContact.setClass(getApplicationContext(), ContactDetailsActivity.class);
 				/**

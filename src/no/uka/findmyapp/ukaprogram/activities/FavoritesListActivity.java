@@ -10,6 +10,7 @@ public class FavoritesListActivity extends Activity{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.event_list);
 	}
+	@Override
 	public void onResume() {
 		super.onResume();
 	}	
