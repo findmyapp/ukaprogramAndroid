@@ -1,30 +1,26 @@
 package no.uka.findmyapp.ukaprogram.activities;
 
-import java.net.URI;
-import java.net.URISyntaxException;
-
-import no.uka.findmyapp.android.rest.client.HttpType;
-import no.uka.findmyapp.android.rest.client.ServiceDataFormat;
-import no.uka.findmyapp.android.rest.client.model.ServiceModel;
-import no.uka.findmyapp.android.rest.contracts.UkaEvents.UkaEventContract;
-import no.uka.findmyapp.android.rest.datamodels.UkaEvent;
 import no.uka.findmyapp.ukaprogram.R;
 import android.app.TabActivity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.TabHost;
-
-import com.google.gson.reflect.TypeToken;
-
+/**
+ * The main activity for UKA11 program 
+ * overview. 
+ */
 public class Client extends TabActivity{
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
+		
+		Log.v("Client", "Client created");
 
 		TabHost tabHost = getTabHost();
 		TabHost.TabSpec spec;
@@ -47,26 +43,10 @@ public class Client extends TabActivity{
 		tabHost.addTab(spec);
 
 		tabHost.setCurrentTab(0);
+		Log.v("Client", "Current tab set");
 
-
-
-	} // end onCreate()
-
-	public void updateRest(){
-		try {
-			ServiceModel sm = new ServiceModel(
-					new URI("http://findmyapp.net/findmyapp/program/UKA11/events/"), 
-					HttpType.GET, 
-					ServiceDataFormat.JSON, 
-					new TypeToken<UkaEvent>(){}.getType(), 
-					UkaEventContract.EVENT_CONTENT_URI);
-		} catch (URISyntaxException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	} 
 		
-	}
-
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater inflater = getMenuInflater();   
@@ -90,25 +70,22 @@ public class Client extends TabActivity{
 		default:  
 			return super.onOptionsItemSelected(item); 
 		}
-
 	}
 
 	public void openCalendar(){
 		Intent intent;
-
 		intent = new Intent().setClass(this, CalendarActivity.class);
 		startActivity(intent);
-
 	}
+	
 	public void openFiveNext(){
 		Intent intent;
-
 		intent = new Intent().setClass(this, FiveNextActivity.class);
 		startActivity(intent);
 	}
+	
 	public void openFullList(){
 		Intent intent;
-
 		intent = new Intent().setClass(this, EventListActivity.class);
 		startActivity(intent);
 	}

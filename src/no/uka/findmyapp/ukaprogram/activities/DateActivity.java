@@ -38,36 +38,22 @@ public class DateActivity extends Activity {
 		dayAdapter = new DayListAdapter(this, R.layout.date_list_adapter, eventsArrayList);
 		TextView header= (TextView) findViewById(R.id.event_list_for_day_day);
 
-
-
-
 		eventListView.setAdapter(dayAdapter);
-
 
 		eventsArrayList.clear();
 		EventDatabase eb = EventDatabase.getInstance();
 		eventsArrayList = eb.getAllEvents(this.getContentResolver());
 		
-		header.setText(eventsArrayList.get(0).getWeekday() +". " + selectedDay + ". Okt");
-		
+		header.setText(eventsArrayList.get(0).getShowingTime().getDay() +". " + selectedDay + ". Okt");
 
 		eventListView.setOnItemClickListener(new OnItemClickListener(){
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id){
-				//viewContact.setClass(getApplicationContext(), ContactDetailsActivity.class);
-				/**
-					databaseHandler.open();
-					databaseHandler.removePerson(contactArrayList.get(position).getId());
-					databaseHandler.close();
-					populateList();
-				 */
 				Intent viewEvent = new Intent();
 				viewEvent.setClass(getApplicationContext(), EventDetailsActivity.class);
 				viewEvent.putExtra("SelectedEvent", eventsArrayList.get(position));///////
 				startActivity(viewEvent); 
 			}
 		});
-
 	}
-
 }

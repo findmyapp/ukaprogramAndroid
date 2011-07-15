@@ -5,35 +5,35 @@ import java.util.List;
 import no.uka.findmyapp.android.rest.datamodels.UkaEvent;
 import no.uka.findmyapp.ukaprogram.R;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
-
 public class EventListAdapter extends ArrayAdapter<UkaEvent> {
 	private int textViewResourceId;
 
 	public EventListAdapter(Context context, int textViewResourceId, List<UkaEvent> items) {	
 		super(context, textViewResourceId, items);
+		Log.v("EventListAdapter", "Inside constructor");
 		this.textViewResourceId = textViewResourceId;
 	}
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent){
+		Log.v("EventListAdapter", "Inside getView");
 		LinearLayout eventView = null;
 		UkaEvent event = getItem(position);
 
-		if(convertView == null){
+		if(convertView == null) {
 			eventView = new LinearLayout(getContext());
 			String inflater = Context.LAYOUT_INFLATER_SERVICE;
 			LayoutInflater vi = (LayoutInflater) getContext().getSystemService(inflater);
 			vi.inflate(textViewResourceId, eventView, true);
 		}
-		else
-		{
+		else {
 			eventView = (LinearLayout) convertView;
 		}
 
@@ -46,7 +46,7 @@ public class EventListAdapter extends ArrayAdapter<UkaEvent> {
 		title.setText(event.getTitle());
 		place.setText(event.getPlace());
 		startTime.setText(event.getStartTime());
-		weekday.setText(event.getWeekday());
+		weekday.setText(event.getStartTime());
 		dayNumber.setText(event.getDayNumber());
 		
 		return eventView;

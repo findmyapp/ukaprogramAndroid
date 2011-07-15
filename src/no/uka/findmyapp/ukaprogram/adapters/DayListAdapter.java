@@ -46,11 +46,7 @@ public class DayListAdapter extends ArrayAdapter<UkaEvent> {
 		place.setText(event.getPlace());
 		startTime.setText(event.getStartTime());
 		category.setText(event.getEventType());
-		
-		
-		
-		
-		
+
 		return eventView;
 	}
 }

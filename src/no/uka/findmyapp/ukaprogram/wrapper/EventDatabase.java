@@ -9,6 +9,8 @@ import no.uka.findmyapp.android.rest.datamodels.UkaEvent;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.database.Cursor;
+import android.net.Uri;
+import android.util.Log;
 
 public class EventDatabase {
 	
@@ -24,10 +26,11 @@ public class EventDatabase {
 	}
 	
 	public ArrayList<UkaEvent> getAllEvents(ContentResolver contentResolver){
+		Log.v("EventDatabase", "Inside getAllEvents");
 		ContentValues contentValues = new ContentValues();
 		UkaEvent ukaEvent;
 		ArrayList<UkaEvent> eventList = new ArrayList<UkaEvent>();
-		Cursor cursor = contentResolver.query(UkaEventContract.EVENT_CONTENT_URI, null, 		
+		Cursor cursor = contentResolver.query(Uri.parse("no.uka.findmyapp.android.rest.providers.EventProvider"), null, 		
 				null, 			
 				null, UkaEventContract.SHOWING_TIME);		
 		
@@ -42,6 +45,7 @@ public class EventDatabase {
 	}
 	
 	public ArrayList<UkaEvent> getNextEventsFromCategory(ContentResolver contentResolver, int numberOfEvents, String eventType){
+		Log.v("EventDatabase", "Inside getNextEventsFromCategory");
 		ContentValues contentValues = new ContentValues();
 		UkaEvent ukaEvent;
 		Date now = new Date();
@@ -61,6 +65,7 @@ public class EventDatabase {
 	}
 
 	private UkaEvent getEventFromCursor(Cursor cursor) {
+		Log.v("EventDatabase", "Inside getEventFromCursor");
 		UkaEvent ukaEvent = new UkaEvent();
 		ukaEvent.setAgeLimit(cursor.getInt(cursor.getColumnIndex(UkaEventContract.AGE_LIMIT)));			
 		//ukaEvent.setCanceled(cursor.getInt(cursor.getColumnIndex(UkaEventContract.CANCELED)));

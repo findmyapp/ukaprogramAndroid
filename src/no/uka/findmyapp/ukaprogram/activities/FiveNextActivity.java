@@ -18,15 +18,15 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
 
-
-
 public class FiveNextActivity extends Activity {
-	EventListAdapter eventAdapter;
-	ArrayList<UkaEvent> eventsArrayList;
-	ListView eventListView;
+	private EventListAdapter eventAdapter;
+	private ArrayList<UkaEvent> eventsArrayList;
+	private ListView eventListView;
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		Log.v("FiveNextActivity", "Inside onCreate");
 		setContentView(R.layout.five_next_list);
 
 		eventsArrayList = new ArrayList<UkaEvent>();
@@ -34,10 +34,10 @@ public class FiveNextActivity extends Activity {
 		eventListView = (ListView) findViewById(R.id.eventListView);
 		eventAdapter = new EventListAdapter(this, R.layout.list_adapter, eventsArrayList);
 		eventListView.setAdapter(eventAdapter);
-		////////
+
 		populateListView();
 		initializeSpinner();
-	} // end onCreate()
+	} 
 
 	public void initializeSpinner(){
 		Spinner spinner = (Spinner) findViewById(R.id.category_spinner);   
@@ -52,8 +52,6 @@ public class FiveNextActivity extends Activity {
 		public void onItemSelected(AdapterView<?> parent,        
 				View view, int pos, long id) {      
 			populateListView(1, pos);
-			//			Toast.makeText(parent.getContext(), "The category is " +         
-			//					parent.getItemAtPosition(pos).toString(), Toast.LENGTH_LONG).show();    
 		}    
 		@Override
 		public void onNothingSelected(AdapterView<?> parent) 
@@ -61,7 +59,6 @@ public class FiveNextActivity extends Activity {
 			// Do nothing.   
 		}
 	}
-
 
 	@Override
 	public void onResume() {
@@ -73,9 +70,7 @@ public class FiveNextActivity extends Activity {
 		eventsArrayList.clear();
 		Log.i("position", value + "");  
 		
-		if (value == 1){
-
-
+		if (value == 1) {
 			eventsArrayList.clear();
 			EventDatabase eb = EventDatabase.getInstance();
 			eventsArrayList = eb.getAllEvents(this.getContentResolver());
@@ -95,20 +90,9 @@ public class FiveNextActivity extends Activity {
 		EventDatabase eb = EventDatabase.getInstance();
 		eventsArrayList = eb.getAllEvents(this.getContentResolver());
 
-
-
-
-		
 		eventListView.setOnItemClickListener(new OnItemClickListener(){
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id){
-				//viewContact.setClass(getApplicationContext(), ContactDetailsActivity.class);
-				/**
-					databaseHandler.open();
-					databaseHandler.removePerson(contactArrayList.get(position).getId());
-					databaseHandler.close();
-					populateList();
-				 */
 				Intent viewEvent = new Intent();
 				viewEvent.setClass(getApplicationContext(), EventDetailsActivity.class);
 				viewEvent.putExtra("SelectedEvent", eventsArrayList.get(position));///////
