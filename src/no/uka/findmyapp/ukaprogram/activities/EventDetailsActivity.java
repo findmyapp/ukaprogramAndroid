@@ -6,11 +6,13 @@ import java.util.ArrayList;
 import no.uka.findmyapp.ukaprogram.R;
 import no.uka.findmyapp.ukaprogram.adapters.EventListAdapter;
 import no.uka.findmyapp.ukaprogram.models.Event;
+import android.R.color;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
@@ -28,10 +30,9 @@ public class EventDetailsActivity extends Activity {
 
 	private Event selectedEvent;
 	private ArrayList<String> friendList;
-	private ListView friendsListView;
 	private String TAG = "EventDetails";
 	private ArrayAdapter<String> friendAdapter;
-	private LinearLayout popupLayout;
+	private ListView friendListView;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -40,14 +41,7 @@ public class EventDetailsActivity extends Activity {
 
 		Bundle extras = getIntent().getExtras();
 		selectedEvent = new Event();
-		friendList = new ArrayList<String>();
-		populateFriendList();
-		friendsListView = (ListView) findViewById(R.id.friends_list_popup);
-		Log.v(TAG, "View: "+friendsListView);
-		friendAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, friendList);
-		friendsListView.setAdapter(friendAdapter);
-		
-		Log.v(TAG, "popupLayout: "+popupLayout);
+		friendList = new ArrayList<String>();		
 		
 		if (extras != null) {
 			selectedEvent = (Event) extras.getSerializable("SelectedEvent");
@@ -81,28 +75,34 @@ public class EventDetailsActivity extends Activity {
 			tv_mail.setText("Mail: " + selectedContact.getEmail());
 			 */
 			
-			final Button friendsButton = (Button) findViewById(R.id.friendsOnEventButton);
+			Button friendsButton = (Button) findViewById(R.id.friendsOnEventButton);
 			friendsButton.setOnClickListener(new View.OnClickListener() {
 	             public void onClick(View v) { 
 	            	showPopupWindow();
 	             }
 	         });
 		}
-
 	}
 	
 	public void populateFriendList() {
 		// Finn venner som skal på arrangementet og legg i liste
-		friendList.add("Audun Sørheim");
-		friendList.add("Kåre Blakstad");
-		friendList.add("Ole Christian Røed");
+		friendList.clear();
+		friendList.add("Audun");
+		friendList.add("Kaare");
+		friendList.add("Ole Christian");
 	}
 
 	public void showPopupWindow() {
-		Dialog dlg = new Dialog(this);
+		friendListView = new ListView(this);
+		populateFriendList();
+		friendAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, friendList);
+		friendListView.setAdapter(friendAdapter);
+		Dialog d = new Dialog(this);
+		friendListView.setBackgroundColor(Color.WHITE);
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-		builder.setView(friendsListView);
-		dlg = builder.create();
-		dlg.show();
+		builder.setTitle("Deltagende venner");
+		builder.setView(friendListView);
+		d = builder.create();
+		d.show();
 	}
 }

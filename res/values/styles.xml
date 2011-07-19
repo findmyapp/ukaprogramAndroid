@@ -31,6 +31,9 @@
 		<item name="android:textSize">14dp</item>
 		<item name="android:colorBackground">@color/button_color</item>
 	</style>
+	<style name="DialogBackground" parent="@android:style/Theme.Dialog">
+		<item name="android:colorForeground">#FFFFFF</item> 
+	</style>
 	<style name="CustomTheme" parent="android:Theme.Light">
 		<item name="android:windowBackground">@color/custom_theme_color</item>
 		<item name="android:colorBackground">@color/custom_theme_color</item>

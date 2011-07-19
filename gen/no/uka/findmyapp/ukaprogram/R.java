@@ -95,7 +95,8 @@ public final class R {
         public static final int BigDayNumber=0x7f070003;
         public static final int BigFont=0x7f070000;
         public static final int Button=0x7f070004;
-        public static final int CustomTheme=0x7f070005;
+        public static final int CustomTheme=0x7f070006;
+        public static final int DialogBackground=0x7f070005;
         public static final int MediumFont=0x7f070001;
         public static final int SmallFont=0x7f070002;
     }
