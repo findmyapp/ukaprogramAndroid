@@ -22,6 +22,8 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 public class EventListActivity extends ListActivity implements OnClickListener{	
 	private final static String debug = "EventListActivity";
